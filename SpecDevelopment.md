@@ -23,30 +23,30 @@ For a data engineering project, the flow usually looks like this:
 
 ```mermaid
 flowchart TD
-    A["<b>1. Intent</b><br/>Human defines trusted daily customer order summary"] --> B["<b>2. HIL Review</b><br/>Human confirms meaning and boundaries"]
-    B --> C["<b>3. Specs / Specs Agent</b><br/>Produces data-product-spec.md"]
-    C --> D["<b>4. HIL Review</b><br/>Human approves business definitions and data expectations"]
-    D --> E["<b>5. Plan / Plan Agent</b><br/>Proposes ingestion, transformation, validation, publishing"]
-    E --> F["<b>6. Tasks / Tasks Agent</b><br/>Creates table, pipeline, test, monitoring tasks"]
-    F --> G["<b>7. Implementation / Implementation Agent</b><br/>Creates code, jobs, schemas, permissions"]
-    G --> H["<b>8. Validation / Validation Agent</b><br/>Checks row counts, reconciliation, freshness, PII"]
-    H --> I["<b>9. HIL Review</b><br/>Human reviews validation results"]
-    I --> J["<b>10. Release</b><br/>Human approves curated table publication"]
-    J --> K["<b>11. Operate / Operations Agent</b><br/>Monitors refresh, failures, schema drift, quality"]
+    A["1. Intent\nHuman defines trusted daily customer order summary"] --> B["2. HIL Review\nHuman confirms meaning and boundaries"]
+    B --> C["3. Specs / Specs Agent\nProduces data-product-spec.md"]
+    C --> D["4. HIL Review\nHuman approves business definitions and data expectations"]
+    D --> E["5. Plan / Plan Agent\nProposes ingestion, transformation, validation, publishing"]
+    E --> F["6. Tasks / Tasks Agent\nCreates table, pipeline, test, monitoring tasks"]
+    F --> G["7. Implementation / Implementation Agent\nCreates code, jobs, schemas, permissions"]
+    G --> H["8. Validation / Validation Agent\nChecks row counts, reconciliation, freshness, PII"]
+    H --> I["9. HIL Review\nHuman reviews validation results"]
+    I --> J["10. Release\nHuman approves curated table publication"]
+    J --> K["11. Operate / Operations Agent\nMonitors refresh, failures, schema drift, quality"]
 
-    C1["<b>Spec agent configuration</b>:<br/>skills<br/>tools<br/>boundaries<br/>permissions<br/>context<br/>HIL rules"] --> C
-    E1["<b>Planning agent configuration</b>:<br/>skills<br/>tools<br/>boundaries<br/>permissions<br/>context<br/>HIL rules"] --> E
-    F1["<b>Task agent configuration</b>:<br/>skills<br/>tools<br/>boundaries<br/>permissions<br/>context<br/>HIL rules"] --> F
-    G1["<b>Implementation agent configuration</b>:<br/>skills<br/>tools<br/>boundaries<br/>permissions<br/>context<br/>HIL rules"] --> G
-    H1["<b>Validation agent configuration</b>:<br/>skills<br/>tools<br/>boundaries<br/>permissions<br/>context<br/>HIL rules"] --> H
-    K1["<b>Operations agent configuration</b>:<br/>skills<br/>tools<br/>boundaries<br/>permissions<br/>context<br/>HIL rules"] --> K
+    C1["Spec agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> C
+    E1["Planning agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> E
+    F1["Task agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> F
+    G1["Implementation agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> G
+    H1["Validation agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> H
+    K1["Operations agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> K
 
-    C2["<b>Spec artifact contract</b>:<br/>spec template<br/>required sections<br/>acceptance criteria"] --> C
-    E2["<b>Plan artifact contract</b>:<br/>delivery plan format<br/>sequencing rules<br/>risks"] --> E
-    F2["<b>Task artifact contract</b>:<br/>task format<br/>dependencies<br/>definition of done"] --> F
-    G2["<b>Code artifact contract</b>:<br/>repo standards<br/>file layout<br/>review checklist"] --> G
-    H2["<b>Test artifact contract</b>:<br/>test plan<br/>quality checks<br/>evidence format"] --> H
-    K2["<b>Operations artifact contract</b>:<br/>runbook<br/>alerts<br/>dashboard expectations"] --> K
+    C2["Spec artifact contract\nspec template, required sections\nacceptance criteria"] --> C
+    E2["Plan artifact contract\ndelivery plan format\nsequencing rules, risks"] --> E
+    F2["Task artifact contract\ntask format, dependencies\ndefinition of done"] --> F
+    G2["Code artifact contract\nrepo standards, file layout\nreview checklist"] --> G
+    H2["Test artifact contract\ntest plan, quality checks\nevidence format"] --> H
+    K2["Operations artifact contract\nrunbook, alerts\ndashboard expectations"] --> K
 
     L1["Human-owned"]:::human
     L2["Agent-assisted"]:::agent
@@ -66,8 +66,8 @@ flowchart TD
     classDef agent fill:#dcfce7,stroke:#16a34a,color:#14532d
     classDef hil fill:#fef3c7,stroke:#d97706,color:#78350f
     classDef operate fill:#f3e8ff,stroke:#9333ea,color:#581c87
-    classDef config fill:#f8fafc,stroke:#64748b,color:#334155,stroke-dasharray: 5 5
-    classDef contract fill:#eef2ff,stroke:#4f46e5,color:#312e81,stroke-dasharray: 3 3
+    classDef config fill:#f8fafc,stroke:#64748b,color:#334155,stroke-dasharray:5 5
+    classDef contract fill:#eef2ff,stroke:#4f46e5,color:#312e81,stroke-dasharray:3 3
 ```
 
 The same idea can be summarized as:
