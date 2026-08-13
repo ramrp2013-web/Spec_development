@@ -22,41 +22,32 @@ This document covers **Step 1: Intent**. The later steps will be developed in se
 For a data engineering project, the flow usually looks like this:
 
 ```mermaid
-flowchart LR
-    A["1. Intent\nHuman"] --> B["2. HIL Review\nHuman"]
-    B --> C["3. Specs\nSpecs Agent"]
-    C --> D["4. HIL Review\nHuman"]
-    D --> E["5. Plan\nPlan Agent"]
-    E --> F["6. Tasks\nTasks Agent"]
-    F --> G["7. Implementation\nImplementation Agent"]
-    G --> H["8. Validation\nValidation Agent"]
-    H --> I["9. HIL Review\nHuman"]
-    I --> J["10. Release\nHuman"]
-    J --> K["11. Operate\nOperations Agent"]
+%%{init: {"flowchart": {"nodeSpacing": 80, "rankSpacing": 90}, "themeVariables": {"fontSize": "20px"}}}%%
+flowchart TD
+    A["1. Intent\nHuman defines trusted daily\ncustomer order summary"] --> B["2. HIL Review\nHuman confirms meaning\nand boundaries"]
+    B --> C["3. Specs / Specs Agent\nProduces data-product-spec.md"]
+    C --> D["4. HIL Review\nHuman approves business definitions\nand data expectations"]
+    D --> E["5. Plan / Plan Agent\nProposes ingestion, transformation,\nvalidation, publishing"]
+    E --> F["6. Tasks / Tasks Agent\nCreates table, pipeline,\ntest, monitoring tasks"]
+    F --> G["7. Implementation / Implementation Agent\nCreates code, jobs,\nschemas, permissions"]
+    G --> H["8. Validation / Validation Agent\nChecks row counts, reconciliation,\nfreshness, PII"]
+    H --> I["9. HIL Review\nHuman reviews validation results"]
+    I --> J["10. Release\nHuman approves curated\ntable publication"]
+    J --> K["11. Operate / Operations Agent\nMonitors refresh, failures,\nschema drift, quality"]
 
-    Ccfg["Specs Agent Config\nskills, tools, boundaries\npermissions, context, HIL"] --> C
-    Cctr["Spec Contract\ntemplate, sections\nacceptance criteria"] --> C
-    C --> Cout["data-product-spec.md"]
+    Ccfg["Specs Agent Configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> C
+    Ecfg["Plan Agent Configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> E
+    Fcfg["Tasks Agent Configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> F
+    Gcfg["Implementation Agent Configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> G
+    Hcfg["Validation Agent Configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> H
+    Kcfg["Operations Agent Configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> K
 
-    Ecfg["Plan Agent Config"] --> E
-    Ectr["Plan Contract"] --> E
-    E --> Eout["delivery-plan.md"]
-
-    Fcfg["Tasks Agent Config"] --> F
-    Fctr["Tasks Contract"] --> F
-    F --> Fout["tasks.md"]
-
-    Gcfg["Implementation Agent Config"] --> G
-    Gctr["Code Contract"] --> G
-    G --> Gout["code and config"]
-
-    Hcfg["Validation Agent Config"] --> H
-    Hctr["Test Contract"] --> H
-    H --> Hout["validation-evidence.md"]
-
-    Kcfg["Operations Agent Config"] --> K
-    Kctr["Operations Contract"] --> K
-    K --> Kout["runbook and monitors"]
+    Cctr["Spec Artifact Contract\nspec template, required sections\nacceptance criteria"] --> C
+    Ectr["Plan Artifact Contract\ndelivery plan format\nsequencing rules, risks"] --> E
+    Fctr["Tasks Artifact Contract\ntask format, dependencies\ndefinition of done"] --> F
+    Gctr["Code Artifact Contract\nrepo standards, file layout\nreview checklist"] --> G
+    Hctr["Test Artifact Contract\ntest plan, quality checks\nevidence format"] --> H
+    Kctr["Operations Artifact Contract\nrunbook, alerts\ndashboard expectations"] --> K
 
     class A human
     class C,E,F,G,H agent
@@ -64,15 +55,13 @@ flowchart LR
     class J,K operate
     class Ccfg,Ecfg,Fcfg,Gcfg,Hcfg,Kcfg config
     class Cctr,Ectr,Fctr,Gctr,Hctr,Kctr contract
-    class Cout,Eout,Fout,Gout,Hout,Kout output
 
-    classDef human fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
-    classDef agent fill:#dcfce7,stroke:#16a34a,color:#14532d
-    classDef hil fill:#fef3c7,stroke:#d97706,color:#78350f
-    classDef operate fill:#f3e8ff,stroke:#9333ea,color:#581c87
-    classDef config fill:#f8fafc,stroke:#64748b,color:#334155,stroke-dasharray:5 5
-    classDef contract fill:#eef2ff,stroke:#4f46e5,color:#312e81,stroke-dasharray:3 3
-    classDef output fill:#ecfeff,stroke:#0891b2,color:#164e63
+    classDef human fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,font-size:20px
+    classDef agent fill:#dcfce7,stroke:#16a34a,color:#14532d,font-size:20px
+    classDef hil fill:#fef3c7,stroke:#d97706,color:#78350f,font-size:20px
+    classDef operate fill:#f3e8ff,stroke:#9333ea,color:#581c87,font-size:20px
+    classDef config fill:#f8fafc,stroke:#64748b,color:#334155,stroke-dasharray:5 5,font-size:18px
+    classDef contract fill:#eef2ff,stroke:#4f46e5,color:#312e81,stroke-dasharray:3 3,font-size:18px
 ```
 
 The same idea can be summarized as:
