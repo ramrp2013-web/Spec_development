@@ -22,45 +22,49 @@ This document covers **Step 1: Intent**. The later steps will be developed in se
 For a data engineering project, the flow usually looks like this:
 
 ```mermaid
-flowchart TD
-    A["1. Intent\nHuman defines trusted daily customer order summary"] --> B["2. HIL Review\nHuman confirms meaning and boundaries"]
-    B --> C["3. Specs / Specs Agent\nProduces data-product-spec.md"]
-    C --> D["4. HIL Review\nHuman approves business definitions and data expectations"]
-    D --> E["5. Plan / Plan Agent\nProposes ingestion, transformation, validation, publishing"]
-    E --> F["6. Tasks / Tasks Agent\nCreates table, pipeline, test, monitoring tasks"]
-    F --> G["7. Implementation / Implementation Agent\nCreates code, jobs, schemas, permissions"]
-    G --> H["8. Validation / Validation Agent\nChecks row counts, reconciliation, freshness, PII"]
-    H --> I["9. HIL Review\nHuman reviews validation results"]
-    I --> J["10. Release\nHuman approves curated table publication"]
-    J --> K["11. Operate / Operations Agent\nMonitors refresh, failures, schema drift, quality"]
+flowchart LR
+    A["1. Intent\nHuman"] --> B["2. HIL Review\nHuman"]
+    B --> C["3. Specs\nSpecs Agent"]
+    C --> D["4. HIL Review\nHuman"]
+    D --> E["5. Plan\nPlan Agent"]
+    E --> F["6. Tasks\nTasks Agent"]
+    F --> G["7. Implementation\nImplementation Agent"]
+    G --> H["8. Validation\nValidation Agent"]
+    H --> I["9. HIL Review\nHuman"]
+    I --> J["10. Release\nHuman"]
+    J --> K["11. Operate\nOperations Agent"]
 
-    C1["Spec agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> C
-    E1["Planning agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> E
-    F1["Task agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> F
-    G1["Implementation agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> G
-    H1["Validation agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> H
-    K1["Operations agent configuration\nskills, tools, boundaries\npermissions, context, HIL rules"] --> K
+    Ccfg["Specs Agent Config\nskills, tools, boundaries\npermissions, context, HIL"] --> C
+    Cctr["Spec Contract\ntemplate, sections\nacceptance criteria"] --> C
+    C --> Cout["data-product-spec.md"]
 
-    C2["Spec artifact contract\nspec template, required sections\nacceptance criteria"] --> C
-    E2["Plan artifact contract\ndelivery plan format\nsequencing rules, risks"] --> E
-    F2["Task artifact contract\ntask format, dependencies\ndefinition of done"] --> F
-    G2["Code artifact contract\nrepo standards, file layout\nreview checklist"] --> G
-    H2["Test artifact contract\ntest plan, quality checks\nevidence format"] --> H
-    K2["Operations artifact contract\nrunbook, alerts\ndashboard expectations"] --> K
+    Ecfg["Plan Agent Config"] --> E
+    Ectr["Plan Contract"] --> E
+    E --> Eout["delivery-plan.md"]
 
-    L1["Human-owned"]:::human
-    L2["Agent-assisted"]:::agent
-    L3["HIL review gate"]:::hil
-    L4["Release / operate"]:::operate
-    L5["Agent configuration"]:::config
-    L6["Artifact contract"]:::contract
+    Fcfg["Tasks Agent Config"] --> F
+    Fctr["Tasks Contract"] --> F
+    F --> Fout["tasks.md"]
+
+    Gcfg["Implementation Agent Config"] --> G
+    Gctr["Code Contract"] --> G
+    G --> Gout["code and config"]
+
+    Hcfg["Validation Agent Config"] --> H
+    Hctr["Test Contract"] --> H
+    H --> Hout["validation-evidence.md"]
+
+    Kcfg["Operations Agent Config"] --> K
+    Kctr["Operations Contract"] --> K
+    K --> Kout["runbook and monitors"]
 
     class A human
     class C,E,F,G,H agent
     class B,D,I hil
     class J,K operate
-    class C1,E1,F1,G1,H1,K1 config
-    class C2,E2,F2,G2,H2,K2 contract
+    class Ccfg,Ecfg,Fcfg,Gcfg,Hcfg,Kcfg config
+    class Cctr,Ectr,Fctr,Gctr,Hctr,Kctr contract
+    class Cout,Eout,Fout,Gout,Hout,Kout output
 
     classDef human fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
     classDef agent fill:#dcfce7,stroke:#16a34a,color:#14532d
@@ -68,6 +72,7 @@ flowchart TD
     classDef operate fill:#f3e8ff,stroke:#9333ea,color:#581c87
     classDef config fill:#f8fafc,stroke:#64748b,color:#334155,stroke-dasharray:5 5
     classDef contract fill:#eef2ff,stroke:#4f46e5,color:#312e81,stroke-dasharray:3 3
+    classDef output fill:#ecfeff,stroke:#0891b2,color:#164e63
 ```
 
 The same idea can be summarized as:
