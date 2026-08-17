@@ -2,66 +2,88 @@
 
 ## Purpose
 
-This document defines coding expectations for the CSV Spark SQL pipeline example.
-AI coding agents should follow these rules when implementing OpenSpec tasks.
+This document defines organization or team-level coding expectations. AI coding
+agents should follow these rules when implementing OpenSpec tasks.
+
+It should not contain project-specific filenames, schemas, queries, or business rules.
 
 ## General Style
 
-- Write readable Python.
-- Use meaningful function and variable names.
+- Write readable code.
+- Use meaningful function, class, module, and variable names.
 - Keep functions focused.
+- Prefer explicit behavior over clever behavior.
 - Avoid unnecessary abstractions.
-- Prefer explicit code over clever code.
+- Match existing project patterns before introducing new ones.
 
 ## Project Organization
 
-- Put pipeline behavior in `src/pipeline.py`.
-- Put configuration in `src/config.py`.
-- Put small reusable helpers in `src/utils.py`.
-- Put tests under `tests/`.
-- Keep documentation in Markdown.
+Each project should define its expected folder and module structure in project
+documentation or change-specific design.
 
-## Python Guidelines
+General expectations:
 
-- Use standard Python formatting conventions.
-- Use type hints when they improve readability.
-- Avoid broad `except Exception` blocks unless re-raising with useful context.
-- Keep module-level constants clear and named.
+- Keep entry points separate from core behavior.
+- Keep configuration separate from business or transformation logic.
+- Keep tests separate from implementation code.
+- Keep reusable helpers focused and cohesive.
 
-## Spark Guidelines
+## Language Guidelines
 
-- Create Spark sessions in a controlled location.
-- Use Spark SQL for the required transformation.
-- Register a temporary view before running SQL.
-- Keep the SQL query readable.
-- Stop Spark sessions where appropriate in tests or scripts.
+Follow the conventions of the approved language and framework.
+
+Examples:
+
+- Use standard formatting tools when the project defines them.
+- Use type hints or static types where they improve maintainability.
+- Keep public interfaces stable and documented.
+- Avoid broad exception handling that hides failures.
+
+## Data Access Guidelines
+
+When working with data sources:
+
+- Use structured APIs or query tools appropriate to the source.
+- For relational sources, use parameterized queries or approved query builders.
+- For file sources, validate paths, formats, headers, and schema expectations.
+- For APIs, validate request and response contracts.
+- Do not hardcode credentials or environment-specific endpoints.
+
+## Transformation Guidelines
+
+- Keep transformation logic easy to inspect.
+- Separate data reading, validation, transformation, and writing where practical.
+- Treat data contracts as required behavior.
+- Prefer deterministic transformations that can be tested with small fixtures.
 
 ## Error Handling
 
-- Validate that input files exist before processing.
-- Validate that required columns are present.
-- Raise clear errors for invalid inputs.
-- Do not silently continue after failed reads, writes, or validations.
+- Validate required inputs before processing.
+- Raise or return clear errors for invalid inputs.
+- Do not silently continue after failed reads, writes, external calls, or validations.
+- Preserve useful context while avoiding sensitive data exposure.
 
 ## Logging
 
-- Use simple logging or clear console output.
-- Do not add external logging dependencies.
-- Log major pipeline steps if helpful for learning.
+- Use the project-approved logging approach.
+- Log major workflow steps when useful.
+- Do not log secrets or sensitive values.
+- Avoid adding external logging dependencies unless approved.
 
 ## Comments
 
 - Add comments only when they clarify non-obvious behavior.
 - Do not comment every line.
-- Prefer readable names over explanatory comments.
+- Prefer readable names and small functions over explanatory comments.
 
 ## Documentation In Code
 
-- Public functions should have concise docstrings when useful.
-- Keep examples in `README.md`, not scattered through implementation files.
+- Public functions, classes, endpoints, or modules should have concise documentation when useful.
+- Keep usage examples in project documentation unless inline examples are a local convention.
 
 ## Notes For AI Agents
 
-- Match the existing project style.
+- Match the existing codebase style.
 - Keep edits scoped to the requested change.
-- Do not add new dependencies unless required by the OpenSpec change.
+- Do not add new dependencies unless required by the OpenSpec change and approved by platform standards.
+- Ask before changing project structure, public interfaces, or data access patterns.

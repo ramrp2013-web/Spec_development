@@ -2,63 +2,95 @@
 
 ## Purpose
 
-This document defines testing expectations for the CSV Spark SQL pipeline example.
-Tests should prove the required behavior without making the learning project heavy.
+This document defines organization or team-level testing expectations. Tests should
+prove required behavior without making the project unnecessarily heavy.
+
+It should not contain project-specific schemas, filenames, tables, or field names.
 
 ## Test Framework
 
-- Use pytest.
-- Use small synthetic sample data.
-- Tests should run locally.
+Use the test framework approved in `TECH_PLATFORM.md`.
+
+Examples:
+
+- pytest.
+- unittest.
+- Jest.
+- Playwright.
+- JUnit.
+- dbt tests.
 
 ## Required Test Coverage
 
-Tests should verify:
+Each change should define tests for:
 
-- The pipeline can read expected CSV input.
-- Required source columns are present.
-- Spark SQL transformation removes dropped fields.
-- Expected output columns are retained.
-- Row count is preserved.
-- Output CSV is written successfully.
-- Missing input or invalid schema fails clearly where practical.
+- Required behavior.
+- Important edge cases.
+- Error handling.
+- Data contracts or API contracts.
+- Security or privacy behavior when relevant.
 
 ## Test Data
 
-- Use synthetic customer records only.
-- Keep data small enough to inspect manually.
-- Do not use real personal data.
+- Use synthetic or approved masked data.
+- Keep fixtures small enough to inspect.
+- Do not use real personal data in tests or examples.
+- For relational sources, use approved test databases, containers, schemas, or mocks.
+- For file sources, use small fixture files.
+- For APIs, use contract fixtures or approved mocks.
 
 ## Unit Tests
 
-Unit tests should cover:
+Unit tests should cover isolated behavior such as:
 
-- Column selection behavior.
-- Configuration values.
-- Helper functions.
 - Validation logic.
+- Transformation logic.
+- Mapping logic.
+- Error handling.
+- Helper functions.
 
 ## Integration Tests
 
-At least one test should run the pipeline against a small local input and verify
-the produced output shape.
+Integration tests should cover meaningful boundaries when practical.
+
+Examples:
+
+- Read from a fixture file and write an output artifact.
+- Read from a test relational table and verify target table changes.
+- Call a local test API and verify request/response behavior.
+- Run a pipeline against synthetic data and verify output contract.
+
+## Contract Tests
+
+Use contract tests when a change depends on structured inputs or outputs.
+
+Examples:
+
+- Required source fields exist.
+- Output fields match the approved contract.
+- API response shape is stable.
+- Relational table columns and types match expectations.
 
 ## Assertions
 
-Prefer assertions that check business behavior:
+Prefer assertions that check required behavior:
 
-- Output contains approved columns.
-- Output does not contain dropped columns.
-- Output row count matches input row count.
+- Expected records are produced.
+- Expected fields are present.
+- Forbidden fields are absent.
+- Row counts, aggregate counts, or status values match expectations when relevant.
+- Error cases fail clearly.
 
-Avoid assertions that depend on incidental Spark internals.
+Avoid assertions that depend on incidental implementation details unless those details
+are part of the requirement.
 
 ## Performance Tests
 
-No performance tests are required for the first version.
+Performance tests are required only when the change defines performance, scale,
+latency, throughput, or batch-window expectations.
 
 ## Notes For AI Agents
 
 - Add or update tests when behavior changes.
-- Do not mark tasks complete until relevant tests pass.
-- If Spark cannot run in the current environment, report the limitation clearly.
+- Do not mark tasks complete until relevant tests pass or an environment limitation is clearly reported.
+- If required external systems are unavailable, use approved mocks or fixtures and document the limitation.

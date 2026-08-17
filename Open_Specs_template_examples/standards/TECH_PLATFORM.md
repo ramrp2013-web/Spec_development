@@ -2,113 +2,195 @@
 
 ## Purpose
 
-This document defines the approved technical platform for the CSV Spark SQL
-pipeline example. OpenSpec and AI coding agents should use this file when
-exploring, proposing, designing, and implementing changes for this project.
+This document defines the approved technical platform for a team or project.
+OpenSpec and AI coding agents should use it when exploring, proposing, designing,
+and implementing changes.
+
+It should describe the allowed technology landscape without embedding
+change-specific schemas, business rules, or one-off implementation details.
 
 ## Project Type
 
-Data engineering batch pipeline.
+Data engineering pipeline or batch data transformation job.
 
 ## Primary Languages
 
-- Python
-- SQL
+- Python.
+- SQL.
 
 ## Runtime Environment
 
-- Local developer machine for the first version.
-- Apache Spark local mode.
-- No production runtime is required for this example.
+Approved runtime options:
+
+- Local developer machine.
+- Docker.
+- Managed Spark platform.
+- Databricks job.
+- Batch compute cluster.
+
+Each change must identify the selected runtime.
 
 ## Frameworks And Libraries
 
-- PySpark for data processing.
-- Spark SQL for transformation logic.
-- pytest for automated tests.
+Required processing platform:
+
+- Apache Spark.
+- PySpark.
+- Spark SQL.
+
+Approved supporting libraries:
+
+- pytest for Python tests.
+- Approved database drivers or connectors when the selected source or target is relational.
+- Approved cloud storage connectors when the selected source or target is cloud storage.
 
 ## Package Management
 
-- Use `requirements.txt` for Python dependencies.
-- Do not add a heavier packaging tool unless the change explicitly asks for it.
+Define dependency management expectations.
 
-## Data Platform
+Examples:
 
-- Input format: local CSV file.
-- Output format: local CSV file.
-- Processing engine: Apache Spark through PySpark.
-- Query engine: Spark SQL.
+- `requirements.txt`.
+- Poetry.
+- uv.
+- pnpm.
+- npm.
+- Maven.
+- Gradle.
+
+## Source And Data Platform
+
+Document the approved source and target platforms for the team.
+
+Allowed source types may include:
+
+- Local or cloud files.
+- Relational database tables.
+- Data warehouse tables.
+
+Allowed target types may include:
+
+- Local files.
+- Cloud files, including ADLS when approved for the change.
+- Relational database tables.
+- Data warehouse tables.
+
+Each change must specify its actual source and target in the change-specific context.
 
 ## Infrastructure Platform
 
-- Local filesystem only.
-- No cloud infrastructure.
-- No database.
-- No scheduler.
+List approved infrastructure choices.
+
+Examples:
+
+- Local-only.
+- Docker Compose.
+- AWS.
+- Azure.
+- GCP.
+- Kubernetes.
+- Terraform-managed infrastructure.
+- Managed orchestration platform.
 
 ## Testing Platform
 
+Define approved testing tools and expectations.
+
 - pytest.
-- Small synthetic CSV test data.
-- Local Spark session for transformation tests.
+- Spark local mode for local tests when feasible.
+- Contract tests for source and target schemas.
+- Local database or containerized database for relational tests when approved.
+- Sample files or synthetic data fixtures.
 
 ## CI/CD Platform
 
-No CI/CD platform is required for this learning example.
+State the approved build, test, and deployment platform.
+
+Examples:
+
+- GitHub Actions.
+- GitLab CI.
+- Jenkins.
+- Azure DevOps.
+- Manual local validation for learning examples.
 
 ## Observability Platform
 
-- Console logs or simple Python logging are acceptable.
-- No external monitoring system is required.
+Define logging, metrics, tracing, and alerting expectations.
+
+Examples:
+
+- Console logs.
+- Structured application logs.
+- OpenTelemetry.
+- CloudWatch.
+- Datadog.
+- Splunk.
 
 ## Security And Secrets
 
-- No secrets are required.
-- Do not commit credentials.
-- Do not use real customer data.
+Define approved secrets handling.
+
+Examples:
+
+- Environment variables for local development.
+- Cloud secrets manager.
+- Vault.
+- Managed identity.
+- Service account.
+
+Secrets must not be committed to source control.
 
 ## Version Constraints
 
+Use this table to define version expectations.
+
 | Tool | Required Version | Notes |
 |---|---:|---|
-| Python | 3.8+ | Required by PySpark compatibility in this example |
-| Java | 8+ | Required for Spark |
-| PySpark | Project dependency | Define exact version in `requirements.txt` |
-| pytest | Project dependency | Define exact version in `requirements.txt` |
+| Python | `<fill in>` | Required for PySpark implementation |
+| Java | `<fill in>` | Required by Spark runtime when applicable |
+| Spark | `<fill in>` | Required processing engine |
+| PySpark | `<fill in>` | Required Python Spark API |
+| pytest | `<fill in>` | Required test framework |
 
 ## Approved Technologies
 
 - Python
+- SQL
+- Apache Spark
 - PySpark
 - Spark SQL
 - pytest
-- Local CSV files
-- Markdown documentation
+- Local files
+- Approved relational connectors
+- Approved cloud storage connectors
 
 ## Restricted Technologies
 
-- Do not add Airflow.
-- Do not add cloud storage such as S3, ADLS, or GCS.
-- Do not add databases.
-- Do not add streaming frameworks.
-- Do not add orchestration tools.
-- Do not add secrets managers.
+List technologies that require explicit approval before use.
+
+Examples:
+
+- New database engines or warehouse platforms.
+- New cloud services.
+- New orchestration platforms.
+- New external APIs.
+- New paid services.
+- Experimental frameworks.
 
 ## Default Local Development Setup
 
+Provide generic local setup guidance or point to the project README.
+
 ```bash
-cd demos/csv-spark-sql-transform
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-pytest
-python src/pipeline.py
+<fill in project-specific setup commands>
 ```
 
 ## Notes For AI Agents
 
-- Use the approved local PySpark platform.
-- Do not introduce new infrastructure.
-- Use Spark SQL for the transformation.
-- If a requested change conflicts with this platform, ask a clarification question
-  before proposing implementation.
+- Use only the approved platform choices.
+- Spark and Spark SQL are required for transformation work in this template.
+- Do not introduce new runtime, storage, database, cloud, or framework dependencies without approval.
+- Source may be file-based or relational; ask for clarification before proposing implementation.
+- Target may be local, cloud storage such as ADLS, or relational; ask for clarification before proposing implementation.
+- Read the change-specific context for the actual source, target, and data contract.

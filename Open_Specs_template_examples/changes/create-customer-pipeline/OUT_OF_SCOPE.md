@@ -1,15 +1,8 @@
-# Out Of Scope: Create Customer Pipeline
+# Out Of Scope: Create Customer Medallion Pipeline
 
-This first version should not include:
+This first version should not include unless explicitly selected during explore:
 
 - Airflow or any other scheduler.
-- Cloud storage such as S3, ADLS, or GCS.
-- Database ingestion.
-- Streaming data.
-- Joins.
-- Aggregations.
-- Filtering.
-- Complex business rules.
 - Production deployment.
 - Real customer data.
 - Data catalog integration.
@@ -17,5 +10,19 @@ This first version should not include:
 - Monitoring dashboards.
 - CI/CD setup.
 - Containerization.
+- Complex business aggregations.
+- Cross-domain joins.
+- Machine learning features.
+- Real-time serving APIs.
 
-Any item above requires a separate intent and OpenSpec change.
+The following are source and target options, not automatically in scope:
+
+- Relational database ingestion.
+- Kafka ingestion.
+- Cloud storage such as ADLS.
+- Data warehouse writes.
+- Relational Data Mart writes.
+
+If one of these source or target options is selected during explore, it becomes
+part of this change's scope. Otherwise, it requires a separate intent and
+OpenSpec change.
